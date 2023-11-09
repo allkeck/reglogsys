@@ -4,7 +4,7 @@ import { useDebounce } from '../../hooks/useDebounce';
 import { InputWrapper } from '../inputWrapper/InputWrapper';
 
 const loginInput = (WrappedComponent) => {
-  const LoginInput = ({ inputType, autoComplete, title, setDebounceValue }) => {
+  const LoginInput = ({ setDebounceValue, ...props }) => {
     const [userLogin, setUserLogin] = useState('');
     const debounceValue = useDebounce(userLogin, 700);
 
@@ -16,7 +16,7 @@ const loginInput = (WrappedComponent) => {
       setDebounceValue(debounceValue);
     }, [debounceValue, setDebounceValue]);
 
-    return <WrappedComponent inputType={inputType} autoComplete={autoComplete} title={title} onChangeHandler={inputChangeHandler} />;
+    return <WrappedComponent {...props} onChangeHandler={inputChangeHandler} />;
   };
 
   return LoginInput;

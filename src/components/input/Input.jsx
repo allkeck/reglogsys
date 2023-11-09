@@ -1,4 +1,4 @@
-export const Input = ({inputType, autoComplete, onChangeHandler}) => {
+export const Input = ({inputType, autoComplete, onChangeHandler, setFocus}) => {
   return (
     <input
       id={inputType}
@@ -8,6 +8,7 @@ export const Input = ({inputType, autoComplete, onChangeHandler}) => {
       required
       className="input-form"
       onChange={onChangeHandler}
+      ref={setFocus}
     />
   )
 };

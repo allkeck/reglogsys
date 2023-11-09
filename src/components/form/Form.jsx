@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 import { reglogsysAPI } from '../../api/apiController';
 import { InputWrapper } from '../inputWrapper/InputWrapper';
@@ -7,6 +7,10 @@ import { LoginInputWrapper } from '../loginInput/LoginInputWrapper';
 export const Form = ({ handleSubmit }) => {
   const [userStatus, setUserStatus] = useState(false);
   const [debounceValue, setDebounceValue] = useState('');
+  const setFocus = useCallback(
+    (element) => {element.focus()},
+    []
+  );
 
   useEffect(() => {
     const result = reglogsysAPI.checkUserLogin(debounceValue);
@@ -16,7 +20,7 @@ export const Form = ({ handleSubmit }) => {
 
   return (
     <form className="space-y-6" action="#" method="POST" onSubmit={handleSubmit} noValidate>
-      <LoginInputWrapper inputType="username" autoComplete="email" title="Логин" setDebounceValue={setDebounceValue} />
+      <LoginInputWrapper inputType="username" autoComplete="email" title="Логин" setDebounceValue={setDebounceValue} setFocus={setFocus} />
 
       {debounceValue && (
         <>
