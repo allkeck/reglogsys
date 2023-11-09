@@ -1,13 +1,12 @@
-import { StrictMode } from 'react';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
 
 import { FormWrapper } from './components/formWrapper/FormWrapper';
 
-import './App.css';
+import './index.css';
 
-export const App = () => {
-  return (
-    <StrictMode>
-      <FormWrapper />
-    </StrictMode>
-  );
-};
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <FormWrapper />
+  </React.StrictMode>
+);
