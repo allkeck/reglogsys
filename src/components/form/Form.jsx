@@ -7,10 +7,9 @@ import { LoginInputWrapper } from '../loginInput/LoginInputWrapper';
 export const Form = ({ handleSubmit }) => {
   const [userStatus, setUserStatus] = useState(false);
   const [debounceValue, setDebounceValue] = useState('');
-  const setFocus = useCallback(
-    (element) => {element.focus()},
-    []
-  );
+  const setFocus = useCallback((element) => {
+    element.focus();
+  }, []);
 
   useEffect(() => {
     const result = reglogsysAPI.checkUserLogin(debounceValue);
