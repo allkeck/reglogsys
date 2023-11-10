@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
 
 import { reglogsysAPI } from '../api/apiController';
-import { InputWrapper } from './InputWrapper';
-import { LoginInputWrapper } from './LoginInputWrapper';
+import { Input } from './Input';
+import { LoginInput } from './LoginInput';
 
 export const Form = ({ handleSubmit }) => {
   const [userStatus, setUserStatus] = useState(false);
@@ -19,11 +19,25 @@ export const Form = ({ handleSubmit }) => {
 
   return (
     <form className="space-y-6" action="#" method="POST" onSubmit={(event) => handleSubmit(event, userStatus)} noValidate>
-      <LoginInputWrapper inputType="username" autoComplete="email" title="Логин" setDebounceValue={setDebounceValue} setFocus={setFocus} />
+      <LoginInput
+        type="text"
+        name="username"
+        id="inputUsername"
+        autoComplete="email"
+        title="Логин"
+        setDebounceValue={setDebounceValue}
+        setFocus={setFocus}
+      />
 
       {debounceValue && (
         <>
-          <InputWrapper inputType="password" autoComplete="current-password" title={userStatus ? 'Введите пароль' : 'Придумайте пароль'} />
+          <Input
+            type="password"
+            name="password"
+            id="inputPassword"
+            autoComplete="current-password"
+            title={userStatus ? 'Введите пароль' : 'Придумайте пароль'}
+          />
 
           <div>
             <button className="button-form">{userStatus ? 'Войти' : 'Зарегистрироваться'}</button>

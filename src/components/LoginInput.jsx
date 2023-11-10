@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 
 import { useDebounce } from '../hooks/useDebounce';
-import { InputWrapper } from './InputWrapper';
+import { Input } from './Input';
 
 const loginInput = (WrappedComponent) => {
-  const LoginInput = ({ setDebounceValue, ...props }) => {
+  const LoginInputComponent = ({ setDebounceValue, ...props }) => {
     const [userLogin, setUserLogin] = useState('');
     const debounceValue = useDebounce(userLogin, 700);
 
@@ -19,7 +19,7 @@ const loginInput = (WrappedComponent) => {
     return <WrappedComponent {...props} onChangeHandler={inputChangeHandler} />;
   };
 
-  return LoginInput;
+  return LoginInputComponent;
 };
 
-export const LoginInputWrapper = loginInput(InputWrapper);
+export const LoginInput = loginInput(Input);
