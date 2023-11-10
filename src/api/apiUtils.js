@@ -2,50 +2,48 @@ const apiConfig = {
   usersTableName: 'users',
 };
 
+const getLocalUsers = () => {
+  return localStorage.getItem(apiConfig.usersTableName);
+};
+
 const LocalStorageUtils = {
   userData: {},
+
+  users: { ...JSON.parse(getLocalUsers()) },
 
   saveUser: function (users) {
     localStorage.setItem(apiConfig.usersTableName, JSON.stringify(users));
   },
 
-  validateUserCredentials: function (users) {
-    return users[this.userData.login].password === this.userData.password;
+  validateUserCredentials: function () {
+    return this.users[this.userData.login].password === this.userData.password;
   },
 
   isUserAlreadyExist: function (login) {
-    const users = JSON.parse(this.getLocalUsers());
+    const users = JSON.parse(getLocalUsers());
 
     if (users) {
       return users[login || this.userData.login];
     }
   },
 
-  getLocalUsers: function () {
-    return localStorage.getItem(apiConfig.usersTableName);
+  setUserData: function ({ login, password }) {
+    this.userData = { login, password };
   },
 
-  createUser: function ({ login, password }) {
-    let users = {};
+  regUser: function ({ login, password }) {
+    this.users[login] = { login, password };
 
-    this.userData = { login, password };
+    this.saveUser(this.users);
 
-    if (this.getLocalUsers()) {
-      users = {...JSON.parse(this.getLocalUsers())};
-    }
+    return { status: 'success', operation: 'reg', data: this.users };
+  },
 
-    if (this.isUserAlreadyExist()) {
-      if (this.validateUserCredentials(users)) {
-        return { status: 'success', data: users };
-      } else {
-        return { status: 'error', errorCode: 403, errorMessage: 'Неверный пароль', data: users };
-      }
+  authUser: function () {
+    if (this.validateUserCredentials()) {
+      return { status: 'success', operation: 'auth', data: this.users };
     } else {
-      users[login] = { login, password };
-
-      this.saveUser(users);
-
-      return { status: 'success', data: users };
+      return { status: 'error', errorCode: 403, errorMessage: 'Неверный пароль', operation: 'auth', data: this.users };
     }
   },
 };

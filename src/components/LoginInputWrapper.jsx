@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
-import { useDebounce } from '../../hooks/useDebounce';
-import { InputWrapper } from '../inputWrapper/InputWrapper';
+import { useDebounce } from '../hooks/useDebounce';
+import { InputWrapper } from './InputWrapper';
 
 const loginInput = (WrappedComponent) => {
   const LoginInput = ({ setDebounceValue, ...props }) => {

@@ -1,18 +1,18 @@
 import { useState } from 'react';
 
-import { reglogsysAPI } from '../../api/apiController';
-import { serializeForm } from '../../utils/utils';
-import { Form } from '../form/Form';
+import { reglogsysAPI } from '../api/apiController';
+import { serializeForm } from '../utils/utils';
+import { Form } from './Form';
 
 export const FormWrapper = () => {
   const [isAuthorozied, setStatusAuthentication] = useState(false);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event, userSatus) => {
     event.preventDefault();
 
     const data = serializeForm(event.target);
 
-    const result = reglogsysAPI.reg(data);
+    const result = userSatus ? reglogsysAPI.auth(data) : reglogsysAPI.reg(data);
 
     console.log(result);
 
@@ -30,10 +30,7 @@ export const FormWrapper = () => {
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        {
-          isAuthorozied ?
-          <p>го играть</p> : <Form handleSubmit={handleSubmit} />
-        }
+        <Form handleSubmit={handleSubmit} />
       </div>
     </div>
   );

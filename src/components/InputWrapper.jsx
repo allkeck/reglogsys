@@ -1,4 +1,4 @@
-import { Input } from '../input/Input';
+import { Input } from './Input';
 
 export const InputWrapper = ({ inputType, autoComplete, title, onChangeHandler, setFocus }) => {
   return (

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-import { FormWrapper } from './components/formWrapper/FormWrapper';
+import { FormWrapper } from './components/FormWrapper';
 
 import './index.css';
 
