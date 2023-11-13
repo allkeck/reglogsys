@@ -1,27 +1,10 @@
 import { useState } from 'react';
 
-import { reglogsysAPI } from '../api/apiController';
-import { serializeForm } from '../utils/utils';
 import { Form } from './Form';
 
 export const FormWrapper = () => {
-  const [isAuthorozied, setStatusAuthentication] = useState(false);
-
-  const handleSubmit = (event, userSatus) => {
-    event.preventDefault();
-
-    const data = serializeForm(event.target);
-
-    const result = userSatus ? reglogsysAPI.auth(data) : reglogsysAPI.reg(data);
-
-    console.log(result);
-
-    if (result.status === 'success') {
-      setStatusAuthentication(true);
-    } else {
-      setStatusAuthentication(false);
-    }
-  };
+  const [formIsSending, setFormSendingStatus] = useState(false);
+  const [formSendingError, setFormSendingError] = useState(false);
 
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -30,7 +13,9 @@ export const FormWrapper = () => {
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <Form handleSubmit={handleSubmit} />
+        <Form setFormSendingStatus={setFormSendingStatus} setFormSendingError={setFormSendingError} />
+        {formIsSending && <div>Preloader</div>}
+        {formSendingError && <p>{formSendingError}</p>}
       </div>
     </div>
   );

@@ -23,12 +23,12 @@ const LocalStorageUtils = {
     const users = JSON.parse(getLocalUsers());
 
     if (users) {
-      return users[login || this.userData.login];
+      return Boolean(users[login || this.userData.login]);
     }
   },
 
-  setUserData: function ({ login, password }) {
-    this.userData = { login, password };
+  setUserData: function (userData) {
+    this.userData = userData;
   },
 
   regUser: function ({ login, password }) {
